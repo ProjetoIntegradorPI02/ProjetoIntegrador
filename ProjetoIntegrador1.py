@@ -74,23 +74,21 @@ print(f"RENTABILIDADE\t\t\t R${RENT:.2f}\t\t{RENT1:.2f} %")
 print('----------------------------------------------------------------------')
 
 #Tabela de Lucros
+
 if RENT1 > 20:
-    print('\033[34m'+'Lucro: Alto'+ '\033[0m') #34m COR AZUl
+    print('\033[34m'+'Lucro: Alto'+ '\033[0m') #34m imprime em cor azul
 
 elif RENT1 >= 10 and RENT1 <= 20:
-    print('\033[32m'+'Lucro: Medio'+ '\033[0m') #32m COR VERDE
+    print('\033[32m'+'Lucro: Medio'+ '\033[0m') #32m imprime em cor verde
+
 
 elif RENT1 > 0 and RENT1 < 10:
-    print('\033[33m'+'Lucro: Baixo'+ '\033[0m') #33m COR AMARELA
+    print('\033[33m'+'Lucro: Baixo'+ '\033[0m') #33m imprime em cor amarela
 
 elif RENT1 == 0:
     print('Lucro: Em Equilibrio'+ '\033[0m')
 
 else:
-    print('\033[31m'+'Em Prejuizo'+ '\033[0m') #31m COR VERMELHA
+    print('\033[31m'+'Em Prejuizo'+ '\033[0m') #31m imprime em cor vermelha
 
-#O '\033[0m' serve para redefinir a cor para o padrão após o print    
-
-
-
-
+#o comando '\033[0m' redefine a cor do terminal para o padrão após o termino do  print
