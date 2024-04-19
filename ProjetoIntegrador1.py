@@ -1,17 +1,33 @@
 # Programa para o Calculo do Preço de Venda
+import oracledb
+#
+connection = oracledb.connect(
+    user = "BD150224225",
+    password = "Yzumv3",
+    dsn = "172.16.12.14/xe"
+)
+print('Conectado')
+#
+cursor = connection.cursor()
 
-#Informaçoes do Produto
-codigo_produto=     int (input('Digite o Código do Produto: '))
-nome_produto =      str ( input ( 'Informe o Nome do Produto: '))
-descricao_produto = str ( input ( 'Informe a Descrição do Produto: '))
+cursor.execute("Select * FROM produtos WHERE nome_produto = 'Banana' ")
+resultado = cursor.fetchall()
 
-#Variaveis do Preço de Venda
+for row in resultado:
+    print(row)
 
-CP = float ( input ( 'Custo do Produto: '))
-CF = float ( input ( 'Custo Fixo: '))
-CV = float ( input ( 'Comisão de Vendas: '))
-IV = float ( input ( 'Impostos: '))
-ML = float ( input ( 'Rentabilidade Esperada: '))
+#
+
+'''#Informaçoes do Produto
+codigo_produto= int (input('Digite o Código do Produto: '))
+sql = f"SELECT CP,CF FROM produtos WHERE codigo_produto= {codigo_produto}"
+#
+
+cursor.execute(sql)
+# Recupere os resultados da consulta
+results = cursor.fetchall()
+for row in results:
+    print(results)
 
 #Formula Calculo Preço de Venda
 PV = CP / ( 1 - ( ( CF + CV + IV + ML) / (100) ) )
@@ -91,4 +107,6 @@ elif RENT1 == 0:
 else:
     print('\033[31m'+'Em Prejuizo'+ '\033[0m') #31m imprime em cor vermelha
 
-#o comando '\033[0m' redefine a cor do terminal para o padrão após o termino do  print
+#o comando '\033[0m' redefine a cor do terminal para o padrão após o termino do  print'''
+cursor.close()
+connection.close()
