@@ -7,29 +7,35 @@ connection = oracledb.connect(
     dsn = "172.16.12.14/xe"
 )
 print('Conectado')
-#
+
 cursor = connection.cursor()
 
-cursor.execute("Select * FROM produtos WHERE nome_produto = 'Banana' ")
-resultado = cursor.fetchall()
-
-for row in resultado:
-    print(row)
-
-#
-
-'''#Informaçoes do Produto
+#Informaçoes do Produto
 codigo_produto= int (input('Digite o Código do Produto: '))
-sql = f"SELECT CP,CF FROM produtos WHERE codigo_produto= {codigo_produto}"
+
+cursor.execute(f"SELECT CP FROM produtos WHERE codigo_produto = {codigo_produto}") 
+CP = cursor.fetchone()[0]
+#
+cursor.execute(f"SELECT CV FROM produtos WHERE codigo_produto = {codigo_produto}")
+CV = cursor.fetchone()[0]
+#
+cursor.execute(f"SELECT CF FROM produtos WHERE codigo_produto = {codigo_produto}")
+CF = cursor.fetchone()[0]
+#
+cursor.execute(f"SELECT IV FROM produtos WHERE codigo_produto = {codigo_produto}")
+IV = cursor.fetchone()[0]
+#
+cursor.execute(f"SELECT ML FROM produtos WHERE codigo_produto = {codigo_produto}")
+ML = cursor.fetchone()[0]
+#
+cursor.execute(f"SELECT nome_produto FROM produtos WHERE codigo_produto = {codigo_produto}")
+nome_produto = cursor.fetchone()[0]
+#
+cursor.execute(f"SELECT descricao_produto FROM produtos WHERE codigo_produto = {codigo_produto}")
+descricao_produto = cursor.fetchone()[0]
 #
 
-cursor.execute(sql)
-# Recupere os resultados da consulta
-results = cursor.fetchall()
-for row in results:
-    print(results)
-
-#Formula Calculo Preço de Venda
+#Formula Calcluo Preço de Venda
 PV = CP / ( 1 - ( ( CF + CV + IV + ML) / (100) ) )
 
 #Cáloulos das % e valores
