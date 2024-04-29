@@ -1,3 +1,4 @@
+
 # Programa para o Calculo do Preço de Venda
 import oracledb
 #
@@ -33,7 +34,6 @@ nome_produto = cursor.fetchone()[0]
 #
 cursor.execute(f"SELECT descricao_produto FROM produtos WHERE codigo_produto = {codigo_produto}")
 descricao_produto = cursor.fetchone()[0]
-#
 
 #Formula Calcluo Preço de Venda
 PV = CP / ( 1 - ( ( CF + CV + IV + ML) / (100) ) )
@@ -61,16 +61,17 @@ CV1= (CV*PV) / 100
 IV1= (IV*PV) / 100
 
 # Outros custos
-OC= CF1+ CV1+ IV1
+OC= CF+ CV+ IV
 
 # %Outros custos
 OCP= (OC*PV) / 100
 
 #Rentabilidade
-RENT= RC- OC
+RENT= CP+ OC
 
+rent=PV-RENT
 #% Rentabilidade
-RENT1= (RENT/PV) * 100
+RENT1= (ML*PV) / 100
 
 #Tabela
 print("----------------------------------------------------------------------")
@@ -80,7 +81,7 @@ print(f"Descrição\t\t\t Valor \t\t\t %")
 print('----------------------------------------------------------------------')
 print(f"Preço de venda\t\t\t R${PV:.2f}\t\t{PV1:.2f} %")
 print('----------------------------------------------------------------------')
-print(f"Preço do produto\t\t R${CP:.2f}\t\t{CPP:.2f} %")
+print(f"Preço do produto\t\t R${CP:.2f}\t\t{CPP :.1f} %")
 print('----------------------------------------------------------------------')
 print(f"RECEITA BRUTA\t\t\t R${RC:.2f}\t\t{RC1:.2f} %")
 print('----------------------------------------------------------------------')
@@ -92,7 +93,7 @@ print(f"IMPOSTOS\t\t\t R${IV1:.2f}\t\t\t{IV:.2f} %")
 print('----------------------------------------------------------------------')
 print(f"OUTROS CUSTOS\t\t\t R${OCP:.2f}\t\t{OC:.2f} %")
 print('----------------------------------------------------------------------')
-print(f"RENTABILIDADE\t\t\t R${RENT:.2f}\t\t{RENT1:.2f} %")
+print(f"RENTABILIDADE\t\t\t R${RENT1:.2f}\t\t{ML:.1f} %")
 print('----------------------------------------------------------------------')
 
 #Tabela de Lucros
@@ -113,7 +114,7 @@ elif RENT1 == 0:
 else:
     print('\033[31m'+'Em Prejuizo'+ '\033[0m') #31m imprime em cor vermelha
 
-#o comando '\033[0m' redefine a cor do terminal para o padrão após o termino do  print'''
 
+#o comando '\033[0m' redefine a cor do terminal para o padrão após o termino do  print'''
 cursor.close()
 connection.close()
