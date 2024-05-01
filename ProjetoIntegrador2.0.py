@@ -11,6 +11,84 @@ print('Conectado')
 
 cursor = connection.cursor()
 
+#Inicio do Programas
+print('_'*50)
+print('Programa Controle de Estoque')
+print('-'*50)
+
+print ("[1] Abrir Menu de Produtos\n[2] Cadastrar Produtos\n[3] Editar Produtos Cadastrados")
+
+num_tela = int ( input (" Escolha a Opção Desejada: "))
+
+while num_tela != 0:
+
+    if num_tela == 1:
+        print('''Escolha a Opção Desejada:
+              
+    [1] Visualizar Produto 
+    [2] Escolher os Produtos por Categoria
+    [3] Visualizar Todos Produtos''' )
+        
+        opcao_tela = int ( input (" Escolha a Opção Desejada: "))
+
+    #cadastro de produtos
+    elif num_tela == 2: 
+
+        print ("Cadastro de Produto")
+
+        nome_cadastro =  input ("Nome do Produto: ")
+        descricao_cadastro =  input ( "Descrição do Produto: ")
+        codigo_cadastro = int (input("Cadastre o Código Para o Produto: "))
+        custo_cadastro = float ( input ( "Custo do Produto: "))
+        comissao_cadastro =  float ( input ("Qual a Taxa de Comissão de Vendas: "))
+        fixo_cadastro = float ( input (" Qual a Taxa de Custo Fixo: "))
+        impostos_cadastro =  float ( input ("Qual a Taxa de Impostos: "))
+        rentabilidade_cadastro = float ( input ("Rentabilidade Esperada: "))
+
+        cursor.execute(f'''INSERT INTO PRODUTOS VALUES({codigo_cadastro},'{nome_cadastro}','{descricao_cadastro}',
+                {custo_cadastro},{fixo_cadastro},{comissao_cadastro},{impostos_cadastro},{rentabilidade_cadastro})'''
+                )
+        
+        print("-"*50)
+        print ("\t\tReveja as Informações")
+        print(f'\t{nome_cadastro},{descricao_cadastro}')
+        print("-"*50)
+
+        print(f"Preço de Aquisição\t\tR${custo_cadastro :.1f}")
+        print(f"Custo Fixo       \t\t{fixo_cadastro} %")
+        print(f"Comissão de Vendas\t\t{comissao_cadastro} %")
+        print(f"Impostos          \t\t{impostos_cadastro} %")
+        print(f"Rentabilidade     \t\t{rentabilidade_cadastro} %")
+
+        print("Deseja Confirmar as Opções ?")
+
+        print("[SIM] Para Confirmar \n[NÃO] Para Cancelar")
+
+        opcao_cadastro = input ("Opção Desejada: ")
+
+        if opcao_cadastro == 'Sim' or opcao_cadastro == 'SIM' or opcao_cadastro == 'sim':
+
+            cursor.execute("commit") #Confirma o Cadastro e Registra os Dados no Banco de Dados
+
+            print("Cadastro Concluido.")
+            print("[1] Cadastrar Outro Produto \n [2]Sair do Cadastro de Produto")
+            
+            num_tela = int ( input (" Escolha a Opção Desejada: "))
+             
+
+        elif opcao_cadastro == 'Nao' or opcao_cadastro == 'NAO' or opcao_cadastro == 'Não' or opcao_cadastro == 'NÃO'or opcao_cadastro =='nao':
+            print("[1] Recomeçar Cadastro \n[2] Sair do Cadastro de Produto")
+
+            num_tela = int ( input (" Escolha a Opção Desejada: "))
+
+            if num_tela != 1 or num_tela != 2:
+                print("ERRO")
+                num_tela = int ( input ("Opção Desejada: "))
+
+        else:
+            print("Opção Digitada Incorreta, Por Favor escolha entre [SIM] ou [NÃO]")
+            opcao_cadastro = input ("Opção Desejada: ")
+
 #Informaçoes do Produto
 codigo_produto= int (input('Digite o Código do Produto: '))
 
