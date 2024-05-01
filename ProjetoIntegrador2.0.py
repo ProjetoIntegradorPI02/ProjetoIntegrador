@@ -27,9 +27,9 @@ while num_tela != 0:
               
     [1] Visualizar Produto 
     [2] Escolher os Produtos por Categoria
-    [3] Visualizar Todos Produtos''' )
+    [3] Visualizar Todos Produtos \n''' )
         
-        opcao_tela = int ( input (" Escolha a Opção Desejada: "))
+        opcao_tela = int ( input ("Escolha a Opção Desejada: "))
 
     #cadastro de produtos
     elif num_tela == 2: 
@@ -84,7 +84,6 @@ while num_tela != 0:
             if num_tela != 1 or num_tela != 2:
                 print("ERRO")
                 num_tela = int ( input ("Opção Desejada: "))
-
         else:
             print("Opção Digitada Incorreta, Por Favor escolha entre [SIM] ou [NÃO]")
             opcao_cadastro = input ("Opção Desejada: ")
@@ -92,26 +91,19 @@ while num_tela != 0:
 #Informaçoes do Produto
 codigo_produto= int (input('Digite o Código do Produto: '))
 
-cursor.execute(f"SELECT CP FROM produtos WHERE codigo_produto = {codigo_produto}") 
-CP = cursor.fetchone()[0]
-#
-cursor.execute(f"SELECT CV FROM produtos WHERE codigo_produto = {codigo_produto}")
-CV = cursor.fetchone()[0]
-#
-cursor.execute(f"SELECT CF FROM produtos WHERE codigo_produto = {codigo_produto}")
-CF = cursor.fetchone()[0]
-#
-cursor.execute(f"SELECT IV FROM produtos WHERE codigo_produto = {codigo_produto}")
-IV = cursor.fetchone()[0]
-#
-cursor.execute(f"SELECT ML FROM produtos WHERE codigo_produto = {codigo_produto}")
-ML = cursor.fetchone()[0]
-#
-cursor.execute(f"SELECT nome_produto FROM produtos WHERE codigo_produto = {codigo_produto}")
-nome_produto = cursor.fetchone()[0]
-#
-cursor.execute(f"SELECT descricao_produto FROM produtos WHERE codigo_produto = {codigo_produto}")
-descricao_produto = cursor.fetchone()[0]
+tabela_produtos = {}
+
+cursor.execute(f"SELECT * FROM produtos WHERE codigo_produto = {codigo_produto}")
+tabela_produtos[codigo_produto] = cursor.fetchone()  
+
+for produto in tabela_produtos.values():
+  nome_produto = produto[1]
+  descricao_produto = produto[2]
+  CP = produto[3]
+  CF = produto[4]
+  CV = produto[5]
+  IV = produto[6]
+  ML = produto[7]
 
 #Formula Calcluo Preço de Venda
 PV = CP / ( 1 - ( ( CF + CV + IV + ML) / (100) ) )
@@ -152,27 +144,28 @@ rent=PV-RENT
 RENT1= (ML*PV) / 100
 
 #Tabela
-print("----------------------------------------------------------------------")
-print(f'\t\t\t{nome_produto} {descricao_produto}')
-print('----------------------------------------------------------------------')
-print(f"Descrição\t\t\t Valor \t\t\t %")
-print('----------------------------------------------------------------------')
-print(f"Preço de venda\t\t\t R${PV:.2f}\t\t{PV1:.2f} %")
-print('----------------------------------------------------------------------')
-print(f"Preço do produto\t\t R${CP:.2f}\t\t{CPP :.1f} %")
-print('----------------------------------------------------------------------')
-print(f"RECEITA BRUTA\t\t\t R${RC:.2f}\t\t{RC1:.2f} %")
-print('----------------------------------------------------------------------')
-print(f"CUSTO FIXO\t\t\t R${CF1:.2f}\t\t{CF:.2f} %")
-print('----------------------------------------------------------------------')
-print(f"COMISSÃO DE VENDAS\t\t R${CV1:.2f}\t\t\t{CV:.2f} %")
-print('----------------------------------------------------------------------')
-print(f"IMPOSTOS\t\t\t R${IV1:.2f}\t\t\t{IV:.2f} %")
-print('----------------------------------------------------------------------')
-print(f"OUTROS CUSTOS\t\t\t R${OCP:.2f}\t\t{OC:.2f} %")
-print('----------------------------------------------------------------------')
-print(f"RENTABILIDADE\t\t\t R${RENT1:.2f}\t\t{ML:.1f} %")
-print('----------------------------------------------------------------------')
+print("-" * 55)
+print(f"{nome_produto:^50}")
+print(f"{descricao_produto:^50}")
+print("-" * 55)
+print(f"{'Descrição':<20}{'Valor':>15}{'%':>15}")
+print("-" * 55)
+print(f"{'Preço de venda':<20}R${PV:>15.2f}{PV1:>15.2f} %")
+print("-" * 55)
+print(f"{'Preço do produto':<20}R${CP:>15.2f}{CPP:>14.1f} %")
+print("-" * 55)
+print(f"{'RECEITA BRUTA':<20}R${RC:>15.2f}{RC1:>15.2f} %")
+print("-" * 55)
+print(f"{'CUSTO FIXO':<20}R${CF1:>15.2f}{CF:>15.2f} %")
+print("-" * 55)
+print(f"{'COMISSÃO DE VENDAS':<20}R${CV1:>15.2f}{CV:>15.2f} %")
+print("-" * 55)
+print(f"{'IMPOSTOS':<20}R${IV1:>15.2f}{IV:>15.2f} %")
+print("-" * 55)
+print(f"{'OUTROS CUSTOS':<20}R${OCP:>15.2f}{OC:>15.2f} %")
+print("-" * 55)
+print(f"{'RENTABILIDADE':<20}R${RENT1:>15.2f}{ML:>14.1f} %")
+print("-" * 55)
 
 #Tabela de Lucros
 
