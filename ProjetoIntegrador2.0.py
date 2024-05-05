@@ -293,7 +293,7 @@ while True:
                 contador=1
             elif Verificar_Dados==2:
                 num_tela=1
-        if num_tela==4 and contador==1:
+        if num_tela==4 and contador>=1:
                     print("\nDigite o Codigo do Produto para Realizar Procedimento\n")
                     codigo_excluir=int(input("\n\033[47m\033[30mDigite o codigo: \033[0m"))
 
@@ -303,14 +303,14 @@ while True:
                         print("_"*55)
                         print("\t   \033[42mDeletado Com Susesso\033[0m")
                         print("-"*55) 
-                        print("\033[32m[1]Deletar Outro Pedido\033[0m\n[0]Voltar")
+                        print("\033[32m[1]Deletar Outro Produto\033[0m\n[0]Voltar")
                         confirmar_excluir=input("\033[47m\033[30mOpção Desejada: \033[0m")
                         while confirmar_excluir not in ['1','0']:#Verificação de entrada
                             print("\n\t\033[41mERRO\033[0m\n")
                             confirmar_excluir=input("\033[47m\033[30mOpção Desejada: \033[0m")
                         if confirmar_excluir =='1':
                             
-                            contador=1
+                            contador=contador+1
                         else:
                             
                             num_tela=0#Condição pra volta pra tela inicial
@@ -330,7 +330,9 @@ while True:
 
                 cursor.execute(f"DELETE FROM Proodutos WHERE codigo = {codigo_excluir}")
                 cursor.execute("commit")
-                print("\n033[42mDeletado Com Susesso\033[0m\n")
+                print("_"*55)
+                print("\t   \033[42mDeletado Com Susesso\033[0m")
+                print("-"*55)
                 num_tela==0#Condição pra volta pra tela inicial
             else:
                 num_tela=0#Condição pra volta pra tela inicial
