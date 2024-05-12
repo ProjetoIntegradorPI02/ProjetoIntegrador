@@ -25,15 +25,42 @@ for produto in cursor:
     CV = produto[5]
     IV = produto[6]
     ML = produto[7]
+    #Formula Calculo Preço de Venda
+    PV = CP / ( 1 - ( ( CF + CV + IV + ML) / (100) ) )
+    #Cáloulos das % e valores
+    #%Preço de venda
+    PV1= (PV/PV) * 100
+    #%Custo do produto
+    CPP= (CP/PV) * 100
+    #Receita bruta 
+    RC= PV - CP
+    #% Receita bruta
+    RC1= (RC/PV) * 100
+    #% Custo fixo
+    CF1= (CF*PV) / 100
+    #% Comissão de vendas
+    CV1= (CV*PV) / 100
+    #% Impostos
+    IV1= (IV*PV) / 100
+    # Outros custos
+    OC= CF+ CV+ IV
+    # %Outros custos
+    OCP= (OC*PV) / 100
+    #Rentabilidade
+    RENT= CP+ OC
+    rent=PV-RENT
+    #% Rentabilidade
+    RENT1= (ML*PV) / 100
     if a==1:
         print("\t\t\t","_" * 55)
         print("\t\t\t\t\t\033[32mInformações do Produto\033[0m")
         print("\t\t\t","-" * 55)
-        print("\n\033[47m\033[30mCódigo\tNome\tDescrição\tCusto do Produto\tCusto Fixo\tComissão\tImpostos\tRentabilidade\033[0m")
+        print("\n\033[47m\033[30mCódigo\tNome\tDescrição\t\tPV\tCP\tRB\tCF\tCV\tIV\tOC\tML\033[0m")
         print("\033[32m_\033[0m" * 120)
         a=2
+     
     
-    print(f"\033[47m\033[30m{codigo}\033[0m\t{nome_produto}\t  {descricao_produto}\t\t\t{CP}\t\t   {CF}\t\t   {CV}\t\t   {IV}\t\t     {ML}\033[0m")
+    print(f"\033[47m\033[30m{codigo}\033[0m\t{nome_produto}\t  {descricao_produto}\t    {PV:>15.2f}\t{CP:.2f}\t{RC1:.2f}\t{CF:.2f}\t{CV:.2f}\t{IV:.2f}\t{OC:.2f}\t{ML:.2f}\033[0m")
     print("\033[32m-\033[0m" * 120)
 
 # Fecha a conexão
