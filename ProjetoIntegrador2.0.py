@@ -14,24 +14,25 @@ cursor = connection.cursor()
 
 #Inicio do Programas
 while True:
+    BDC=1
     codigo_campos=0
     contador=0
     print("\n") 
     print("_"*55)
     print("\t   Programa Controle de Estoque")
     print("-"*55)
-    print ("\033[32m[1] Visualizar Produto\033[0m   \n[2] Cadastrar Produto \n\033[33m[3] Editar Produto Cadastrado\033[0m \n\033[31m[4] Apagar Produto\033[0m")
+    print ("\033[32m[1] Exibir Calculo \033[0m   \n[2] Cadastrar Produto \n\033[33m[3] Editar Produto Cadastrado\033[0m \n\033[31m[4] Apagar Produto\033[0m\n[5] Banco De Dados")
     num_tela = int ( input ("\033[47m\033[30mEscolha a Opção Desejada: \033[0m"))#\033[47m Codigo pra definir cor de fundo,\033[30m Define cor do testo como preta
    
    
-    while num_tela not in [1, 2,3,4]:
-        print ("\033[32m[1] Visualizar Produto\033[0m   \n[2] Cadastrar Produto \n\033[33m[3] Editar Produto Cadastrado\033[0m \n\033[31m[4] Apagar Produto\033[0m")
+    while num_tela not in [1, 2,3,4,5]:
+        print ("\033[32m[1] Exibir Calculo\033[0m   \n[2] Cadastrar Produto \n\033[33m[3] Editar Produto Cadastrado\033[0m \n\033[31m[4] Apagar Produto\033[0m[5] Banco De Dados")
         num_tela = int ( input ("\033[47m\033[30mEscolha a Opção Desejada: \033[0m"))
         
     while num_tela>0:
      if num_tela == 1:
         print("_"*55)
-        print("\t   Vizualizar produtos")
+        print("\t   Vizualizar Calculo")
         print("-"*55)
         
 
@@ -79,28 +80,28 @@ while True:
         #% Rentabilidade
         RENT1= (ML*PV) / 100
         #Tabela
-        print("-" * 55)
-        print(f"{nome_produto:^50}")
-        print(f"{descricao_produto:^50}")
-        print("-" * 55)
-        print(f"{'Descrição':<20}{'Valor':>15}{'%':>15}")
-        print("-" * 55)
-        print(f"{'Preço de venda':<20}R${PV:>15.2f}{PV1:>15.2f} %")
-        print("-" * 55)
-        print(f"{'Preço do produto':<20}R${CP:>15.2f}{CPP:>14.1f} %")
-        print("-" * 55)
-        print(f"{'RECEITA BRUTA':<20}R${RC:>15.2f}{RC1:>15.2f} %")
-        print("-" * 55)
-        print(f"{'CUSTO FIXO':<20}R${CF1:>15.2f}{CF:>15.2f} %")
-        print("-" * 55)     
-        print(f"{'COMISSÃO DE VENDAS':<20}R${CV1:>15.2f}{CV:>15.2f} %")
-        print("-" * 55)
-        print(f"{'IMPOSTOS':<20}R${IV1:>15.2f}{IV:>15.2f} %")
-        print("-" * 55)
-        print(f"{'OUTROS CUSTOS':<20}R${OCP:>15.2f}{OC:>15.2f} %")
-        print("-" * 55)
-        print(f"{'RENTABILIDADE':<20}R${RENT1:>15.2f}{ML:>14.1f} %")
-        print("-" * 55)
+        print("\033[32m-\033[0m" * 55)
+        print(f"\033[32m{nome_produto:^50}\033[0m")
+        print(f"\033[32m{descricao_produto:^50}\033[32m")
+        print("\033[32m-\033[0m" * 55)
+        print(f"{'\033[47m\033[30mDescrição\033[0m':<20}\t\t\t{'\033[47m\033[30mValor\033[0m':>15}\t{'\033[47m\033[30m%\033[0m':>15}")
+        print("\033[32m-\033[0m" * 55)
+        print(f"\033[32m{'Preço de venda':<20}\033[0mR${PV:>15.2f}{PV1:>15.2f} %")
+        print("\033[32m-\033[0m" * 55)
+        print(f"\033[32m{'Preço do produto':<20}\033[0mR${CP:>15.2f}{CPP:>14.1f} %")
+        print("\033[32m-\033[0m" * 55)
+        print(f"\033[32m{'RECEITA BRUTA':<20}\033[0mR${RC:>15.2f}{RC1:>15.2f} %")
+        print("\033[32m-\033[0m" * 55)
+        print(f"\033[32m{'CUSTO FIXO':<20}\033[0mR${CF1:>15.2f}{CF:>15.2f} %")
+        print("\033[32m-\033[0m" * 55)     
+        print(f"\033[32m{'COMISSÃO DE VENDAS':<20}\033[0mR${CV1:>15.2f}{CV:>15.2f} %")
+        print("\033[32m-\033[0m" * 55)
+        print(f"\033[32m{'IMPOSTOS':<20}\033[0mR${IV1:>15.2f}{IV:>15.2f} %")
+        print("\033[32m-\033[0m" * 55)
+        print(f"\033[32m{'OUTROS CUSTOS':<20}\033[0mR${OCP:>15.2f}{OC:>15.2f} %")
+        print("\033[32m-\033[0m" * 55)
+        print(f"\033[32m{'RENTABILIDADE':<20}\033[0mR${RENT1:>15.2f}{ML:>14.1f} %")
+        print("\033[32m-\033[0m" * 55)
         
         #Tabela de Lucros
 
@@ -119,9 +120,20 @@ while True:
         else:
             print('\t\t\033[31m'+'Em Prejuizo'+ '\033[0m') #31m imprime em cor vermelha
 
-        print("\033[31m[4] Excluir\033[0m \n\033[33m[3] Editar\033[0m  \n[0]Sair")
+        print("\033[31m[1] Excluir\033[0m \n\033[33m[2] Editar\033[0m  \n[0]Sair")
         contador=1
-        num_tela=int(input("\033[47m\033[30mOpção Desejada: \033[0m"))
+        num=int(input("\033[47m\033[30mOpção Desejada: \033[0m"))
+        while num not in [1, 2,0]:
+           print("\033[31m[1] Excluir\033[0m \n\033[33m[2] Editar\033[0m  \n[0]Sair")
+           contador=1
+           num=int(input("\033[47m\033[30mOpção Desejada: \033[0m"))
+        if num==1:
+            num_tela=4
+        if num==2:
+            num_tela=3
+        if num==0:
+            num_tela=0
+    
 
 
 
@@ -337,7 +349,41 @@ while True:
             else:
                 num_tela=0#Condição pra volta pra tela inicial
 
-           
-              
+     if num_tela==5:       
+        
+        if BDC==1:
+            cursor.execute("SELECT * FROM proodutos")
+        if BDC==2:
+            print("\033[31m[1] Excluir\033[0m \n\033[33m[2] Editar\033[0m\n[3] Vizualizar Calculo\n[0] Sair")
+            contador=1
+            num=int(input("\033[47m\033[30mOpção Desejada: \033[0m"))
+            if num==1:
+                num_tela=4
+            if num==2:
+                num_tela=3
+            if num==3:
+                num_tela=1
+            if num==0:
+                num_tela=0
+        for produto in cursor:
+    
+            codigo = produto[0]
+            nome_produto = produto[1]
+            descricao_produto = produto[2]
+            CP = produto[3]
+            CF = produto[4]
+            CV = produto[5]
+            IV = produto[6]
+            ML = produto[7]
+            if BDC==1:
+                print("\t\t\t","_" * 55)
+                print("\t\t\t\t\t\033[32mInformações do Produto\033[0m")
+                print("\t\t\t","-" * 55)
+                print("\n\033[47m\033[30mCódigo\tNome\tDescrição\tCusto do Produto\tCusto Fixo\tComissão\tImpostos\tRentabilidade\033[0m")
+                print("\033[32m_\033[0m" * 120)
+                BDC=2
+            
+            print(f"\033[47m\033[30m{codigo}\033[0m\t{nome_produto}\t{descricao_produto}\t\t\t{CP}\t\t   {CF}\t\t   {CV}\t\t   {IV}\t\t     {ML}")
+            print("\033[32m-\033[0m" * 120)
 cursor.close()
 connection.close()
