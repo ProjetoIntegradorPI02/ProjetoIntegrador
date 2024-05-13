@@ -112,8 +112,13 @@ elif RENT1 == 0:
 
 else:
     print('\033[31m'+'Em Prejuizo'+ '\033[0m') #31m imprime em cor vermelha
+<<<<<<< HEAD
 
 #o comando '\033[0m' redefine a cor do terminal para o padrão após o termino do  print'''
 
 cursor.close()
 connection.close()
+=======
+
+#o comando '\033[0m' redefine a cor do terminal para o padrão após o termino do  print
+>>>>>>> 51ccb3d (Modificado os Comentarios da Tabela de Lucros)
