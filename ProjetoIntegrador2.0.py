@@ -3,7 +3,7 @@
 import oracledb
 #
 connection = oracledb.connect(
-    user = "BD150224438",
+    user = "D150224438",
     password = "Yxcjw1",
     dsn = "172.16.12.14/xe"
 )
