@@ -58,7 +58,7 @@ def listar_produtos():
 
         if listaUnica is None:
             print("Nenhum produto encontrado.")
-            buscarProdutos()
+            return
         else:
             nome_produto = listaUnica[0]
             descricao_produto = listaUnica[1]
@@ -79,7 +79,9 @@ def listar_produtos():
             if num == 1:
                 contador=1
                 apagarProdutos(codigo_produto)
+                return
             if num == 2:
+                contador=1
                 editarProdutos(codigo_produto)
                 return 
             if num == 0:
@@ -112,8 +114,11 @@ def listar_produtos():
             print("\n\t\033[41mERRO\033[0m\n")
             num = verificacao("\n\033[47m\033[30mOpção Desejada: \033[0m",int)
         if num == 1:
+            contador=1
             apagarProdutos()
+            return
         if num == 2:
+            contador=1
             editarProdutos()
             return
         if num == 0:
@@ -368,9 +373,14 @@ def editarProdutos(codigo_produto=None):
             return
             
         if codigo_produto is None and opcao_editar!=0:
-           codigo_produto = verificacao("\n\033[47m\033[30mDigite o Código do Produto que Deseja Editar: \033[0m", int)    
-       
-        elif opcao_editar == 1:
+            codigo_produto = verificacao("\n\033[47m\033[30mDigite o Código do Produto que Deseja Editar: \033[0m", int)    
+            listaUnica = tabela_produtos.get(codigo_produto)
+
+            if listaUnica is None:
+                print("Nenhum produto encontrado.")
+                return
+            
+        if opcao_editar == 1:
             Campo_Nome = input("Nome desejado: ")
             cursor.execute(f"UPDATE produtospi SET nome_produto = '{Campo_Nome}' WHERE codigo_produto = {codigo_produto}")
             cursor.execute("commit")
@@ -405,7 +415,7 @@ def editarProdutos(codigo_produto=None):
             campoRentabilidade=float(input("Rentabilidade Desejada: "))
             cursor.execute(f"UPDATE produtospi SET ML = '{campoRentabilidade}' WHERE codigo_produto = {codigo_produto}")
             cursor.execute("commit")
-        elif opcao_editar!=0:
+        if opcao_editar!=0:
             print("_"*55)
             print("\t   \033[42mAlteração Bem Sucedida\033[0m")
             print("-"*55)   
@@ -472,10 +482,12 @@ def apagarProdutos(codigo_produto):
         if confirmar_excluir == 1:
             contador = 1
             codigo_produto = verificacao("Digite o código do produto a ser excluído: ", int)  # Solicita o código do produto
-            
             apagarProdutos(codigo_produto)
-        elif confirmar_excluir == 0:
             return
+        
+        else:
+            return
+            
 
 
 def telaMenu():
@@ -497,7 +509,7 @@ chave = [[4, 3], [1, 2]]
 # Fluxo principal do programa
 num_tela = telaMenu()
 while num_tela != 0:
-
+    
     tabela_produtos = buscarProdutos(tabela_produtos)
 
     while num_tela not in [1, 2, 3, 4]:
@@ -514,13 +526,10 @@ while num_tela != 0:
         editarProdutos()
 
     elif num_tela == 4:
+        codigo_produto = None
+        apagarProdutos(codigo_produto)
 
-        if contador == 0:
-            codigo_produto = None
-            apagarProdutos(codigo_produto)
-
-        else:
-            apagarProdutos()
+  
 
     num_tela = telaMenu()
 
