@@ -7,7 +7,7 @@ import oracledb
 try:    
     connection = oracledb.connect(
     user = "BD150224225",
-    password = "Yzumv3",
+    password = "",
     dsn = "172.16.12.14/xe"
     )
     cursor = connection.cursor()
@@ -78,6 +78,7 @@ def listar_produtos():
 
             if num == 1:
                 contador=1
+                codigo_produto = None
                 apagarProdutos(codigo_produto)
                 return
             if num == 2:
@@ -115,11 +116,11 @@ def listar_produtos():
             num = verificacao("\n\033[47m\033[30mOpção Desejada: \033[0m",int)
         if num == 1:
             contador=1
-            apagarProdutos()
+            apagarProdutos(codigo_produto)
             return
         if num == 2:
             contador=1
-            editarProdutos()
+            editarProdutos(codigo_produto)
             return
         if num == 0:
             return
@@ -255,8 +256,10 @@ def descriptografar(texto_cifrado, alfabeto, chave):
     return texto_descriptografado
 
 def cadastroProdutos(tabela_produtos): 
+    print("-" * 55)
     print ("Cadastro de Produto")
-    nome_cadastro = verificacao("Nome do Produto: ",str)
+    print("-" * 55)
+    nome_cadastro = verificacao("\nNome do Produto: ",str)
     nome_cadastro = nome_cadastro.upper()
 
     descricao_cadastro = verificacao("Descrição do Produto: ",str)
@@ -311,7 +314,7 @@ def cadastroProdutos(tabela_produtos):
                 print("\n\t\033[41mERRO\033[0m\n")
                 opcao_cadastro = verificacao ("Opção Desejada: ",int)
         if opcao_cadastro == 1 :
-            cadastroProdutos()
+            cadastroProdutos(tabela_produtos)
 
         elif opcao_cadastro == 2:
              return
@@ -382,12 +385,16 @@ def editarProdutos(codigo_produto=None):
             
         if opcao_editar == 1:
             Campo_Nome = input("Nome desejado: ")
+            
             cursor.execute(f"UPDATE produtospi SET nome_produto = '{Campo_Nome}' WHERE codigo_produto = {codigo_produto}")
             cursor.execute("commit")
 
         elif opcao_editar ==2:
             Campo_Descriçao= input("Descrição Desejada: ")
-            cursor.execute(f"UPDATE produtospi SET descricao_produto = '{Campo_Descriçao}' WHERE codigo_produto = {codigo_produto}")
+            Campo_Descriçao = Campo_Descriçao.upper()
+            texto_cifrado = criptografia(Campo_Descriçao,alfabeto,chave)
+            
+            cursor.execute(f"UPDATE produtospi SET descricao_produto = '{texto_cifrado}' WHERE codigo_produto = {codigo_produto}")
             cursor.execute("commit")
 
         elif opcao_editar ==3:
@@ -456,7 +463,9 @@ def apagarProdutos(codigo_produto):
             return
 
     if contador == 1:
-        # Mudança 3: Solicita ao usuário o código do produto a ser excluído se não foi fornecido
+        
+        if codigo_produto is not None:
+            codigo_produto = verificacao("Digite o código do produto a ser excluído: ", int)     
         cursor.execute(f"SELECT * FROM produtospi WHERE codigo_produto = {codigo_produto}")
         produtos = cursor.fetchone()  #Busca o produto pelo código no Banco de Dados
 
@@ -495,7 +504,7 @@ def telaMenu():
     print("_"*55)
     print("\t   Programa Controle de Estoque")
     print("-"*55)
-    print("\033[32m[1] Classificação de Lucros \033[0m  \n[2] Cadastro de Produto \n\033[33m[3] Alteração de Produtos \033[0m \n\033[31m[4] Exclusão de Produtos\033[0m\n")
+    print("\033[32m[1] Classificação de Lucros \033[0m  \n[2] Cadastro de Produto \n\033[33m[3] Alteração de Produtos \033[0m \n\033[31m[4] Exclusão de Produtos\033[0m\n[0] Voltar\n")
     num_tela = verificacao("\033[47m\033[30mEscolha a Opção Desejada: \033[0m", int)
     return num_tela
 
